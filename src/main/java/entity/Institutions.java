@@ -20,7 +20,7 @@ public class Institutions {
     @Basic
     @Column(name = "type")
     private String type;
-    @OneToMany(mappedBy = "institutionsByInstitution")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "institutionsByInstitution")
     private List<Entrant> entrantsById = new java.util.ArrayList<>();
 
     public List<Entrant> getEntrantsById() {

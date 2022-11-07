@@ -1,6 +1,7 @@
 package entity;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -16,9 +17,9 @@ public class Faculties {
     @Basic
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "facultiesByFaculty")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "facultiesByFaculty")
     private List<Entrant> entrants = new java.util.ArrayList<>();
-    @OneToMany(mappedBy = "facultiesByFaculty")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "facultiesByFaculty")
     private List<Specializations> specializationsById = new java.util.ArrayList<>();
 
     public List<Specializations> getSpecializationsById() {

@@ -16,11 +16,11 @@ public class Subjects {
     @Basic
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "subjectsByIdSubj")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "subjectsByIdSubj")
     private List<EnterExamsResults> enterExamsResultsById = new java.util.ArrayList<>();
-    @OneToMany(mappedBy = "subjectsByIdSubj")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "subjectsByIdSubj")
     private List<ExamScores> examScoresById = new java.util.ArrayList<>();
-    @OneToMany(mappedBy = "subjectsByIdSubj")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "subjectsByIdSubj")
     private List<SchoolScores> schoolScoresById = new java.util.ArrayList<>();
 
     public List<SchoolScores> getSchoolScoresById() {

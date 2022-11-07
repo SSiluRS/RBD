@@ -1,6 +1,7 @@
 package entity;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Specializations {
     @Basic
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "specializationsBySpecialization")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "specializationsBySpecialization")
     private List<Entrant> entrantsById = new java.util.ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "faculty", referencedColumnName = "id", nullable = false)

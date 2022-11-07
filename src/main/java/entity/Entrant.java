@@ -63,13 +63,13 @@ public class Entrant {
     @ManyToOne
     @JoinColumn(name = "institution", referencedColumnName = "id", nullable = false)
     private Institutions institutionsByInstitution;
-    @OneToMany(mappedBy = "entrantByIdEntr")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "entrantByIdEntr")
     private List<ExamScores> examScoresById = new java.util.ArrayList<>();
-    @OneToMany(mappedBy = "entrantByIdEntr")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "entrantByIdEntr")
     private List<GradDocs> gradDocsById = new java.util.ArrayList<>();
     @OneToMany(mappedBy = "entrantByChild", fetch = FetchType.EAGER)
     private List<Parents> parentsById = new java.util.ArrayList<>();
-    @OneToMany(mappedBy = "entrantByIdEntr")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "entrantByIdEntr")
     private List<SchoolScores> schoolScoresById = new java.util.ArrayList<>();
 
     public List<EnterExamsResults> getEnterExamsResultsById() {

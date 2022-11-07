@@ -24,7 +24,7 @@ public class Main {
 
     }
 
-    static String[] mainMenu = {"Выход","Выход без сохранения","Абитуриент","Родители", "Факультеты", "Направления", "Профильные предметы", "Учебные заведения", "Документы о выпуске", "Результаты вступительных экзаменов"};
+    static String[] mainMenu = {"Выход","Абитуриент","Родители", "Факультеты", "Направления", "Профильные предметы", "Учебные заведения", "Документы о выпуске", "Результаты вступительных экзаменов"};
     static String[] parentMenu = { "Назад","Добавить родителя","Удалить родителя","Просмотреть всех родителей","Изменить данные родителя","Поиск родителя" };
     static String[] entrMenu = {"Назад","Добавить абитуриента","Удалить абитуриента","Просмотреть всех абитуриентов","Изменить данные абитуриента","Поиск абитуриента"};
     static String[] subjMenu = { "Назад","Добавить предмет","Удалить предмет","Просмотреть все предметы","Изменить предмет", "Поиск предмета"};
@@ -53,7 +53,7 @@ public class Main {
         return reader.readLine();
     }
 
-    public static boolean menu() throws IOException, InterruptedException {
+    public static void menu() throws IOException, InterruptedException {
         EntrantMapper entrantMapper = new EntrantMapper();
         FacultiesMapper facultiesMapper = new FacultiesMapper();
         ExamScoresMapper examScoresMapper = new ExamScoresMapper();
@@ -66,7 +66,6 @@ public class Main {
         EnterExamsResultsMapper enterExamsResultsMapper = new EnterExamsResultsMapper();
 
 
-        boolean isSave = false;
         System.out.println("Приемная комиссия:");
         boolean isMenu = true;
         while (isMenu) {
@@ -78,15 +77,9 @@ public class Main {
             switch (key) {
                 case 0: {
                     isMenu = false;
-                    isSave = true;
                     break;
                 }
                 case 1: {
-                    isMenu = false;
-                    isSave = false;
-                    break;
-                }
-                case 2: {
                     boolean isEntrMenu = true;
                     while (isEntrMenu) {
                         chooseMenu(Menu.ENTRANT);
@@ -118,7 +111,7 @@ public class Main {
                                     System.out.println((i + 1) + ". " + faculties.get(i).getName());
                                 }
                                 System.out.print("Введите факультет: ");
-                                var faculty = faculties.get(Integer.parseInt(input()));
+                                var faculty = faculties.get(Integer.parseInt(input())-1);
                                 entrant.setFacultiesByFaculty(faculty);
 
 
@@ -127,15 +120,15 @@ public class Main {
                                     System.out.println((i + 1) + ". " + insts.get(i).getName());
                                 }
                                 System.out.print("Введите учебное заведение: ");
-                                entrant.setInstitutionsByInstitution(insts.get(Integer.parseInt(input())));
+                                entrant.setInstitutionsByInstitution(insts.get(Integer.parseInt(input())-1));
 
 
-                                var specs = (List<Specializations>) faculty.getSpecializationsById();
+                                var specs = faculty.getSpecializationsById();
                                 for (int i = 0; i < specs.size(); i++) {
-                                    System.out.println((i + 1) + ". " + specs.get(i).getId());
+                                    System.out.println((i + 1) + ". " + specs.get(i).getName());
                                 }
                                 System.out.print("Введите направление: ");
-                                entrant.setSpecializationsBySpecialization(specs.get(Integer.parseInt(input())));
+                                entrant.setSpecializationsBySpecialization(specs.get(Integer.parseInt(input())-1));
 
                                 System.out.print("Введите год выпуска (гггг): ");
                                 entrant.setGradYear(input());
@@ -429,7 +422,7 @@ public class Main {
                     }
                     break;
                 }
-                case 3: {
+                case 2: {
                     boolean isParentMenu = true;
                     while (isParentMenu) {
                         chooseMenu(Menu.PARENT);
@@ -602,7 +595,7 @@ public class Main {
                     }
                     break;
                 }
-                case 4: {
+                case 3: {
                     boolean isFacMenu = true;
                     while (isFacMenu) {
                         chooseMenu(Menu.FACULTY);
@@ -670,7 +663,7 @@ public class Main {
                     }
                     break;
                 }
-                case 5: {
+                case 4: {
                     boolean isSpecMenu = true;
                     while (isSpecMenu) {
                         chooseMenu(Menu.SPECIALISATION);
@@ -738,7 +731,7 @@ public class Main {
                     }
                     break;
                 }
-                case 6: {
+                case 5: {
                     boolean isSubjMenu = true;
                     while (isSubjMenu) {
                         chooseMenu(Menu.SUBJECT);
@@ -804,7 +797,7 @@ public class Main {
                     }
                     break;
                 }
-                case 7: {
+                case 6: {
                     boolean isInstMenu = true;
                     while (isInstMenu) {
                         chooseMenu(Menu.INSTITUTION);
@@ -898,7 +891,7 @@ public class Main {
                     }
                     break;
                 }
-                case 8: {
+                case 7: {
                     boolean isGradMenu = true;
                     while (isGradMenu) {
                         chooseMenu(Menu.GRAD_DOC);
@@ -1309,7 +1302,7 @@ public class Main {
                     }
                     break;
                 }
-                case 9: {
+                case 8: {
                     boolean isEnterMenu = true;
                     while (isEnterMenu) {
                         chooseMenu(Menu.ENTER_EXAMS);
@@ -1469,14 +1462,12 @@ public class Main {
                 }
             }
         }
-
-        return isSave;
     }
 
     public static void main(String[] args) throws IOException {
 
         try {
-            var isCommit = menu();
+            menu();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
